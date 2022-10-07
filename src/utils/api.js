@@ -14,7 +14,7 @@ class Api {
     }
   }
 
-  getProfileData() {
+  getUserInfo() {
     return fetch(`${this._baseUrl}users/me`, {
       headers: this._headers
     })
