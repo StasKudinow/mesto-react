@@ -8,6 +8,7 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { CardsContext } from '../contexts/CardsContext';
@@ -45,10 +46,20 @@ function App() {
   };
 
   function handleUpdateUser(data) {
-    console.log(data)
     api.setUserInfo(data)
       .then((userData) => {
         setCurrentUser(userData);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
+  };
+
+  function handleUpdateAvatar(data) {
+    api.setAvatar(data)
+      .then((link) => {
+        setCurrentUser(link);
         closeAllPopups();
       })
       .catch((err) => {
@@ -79,9 +90,7 @@ function App() {
             onEditProfile={handleEditProfileClick}
             onAddCard={handleAddCardClick}
             onCardClick={handleCardClick}
-            onSetCards={(cards) => {
-              setCards(cards);
-            }}
+            onSetCards={setCards}
           />
 
           <Footer />
@@ -90,6 +99,12 @@ function App() {
             isOpen={ isEditProfilePopupOpen && 'popup_opened' }
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
+          />
+
+          <EditAvatarPopup
+            isOpen={ isEditAvatarPopupOpen && 'popup_opened' }
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
           />
 
           <PopupWithForm
@@ -113,18 +128,6 @@ function App() {
             title="Вы уверены?"
             button={'Да'}
           />
-
-          <PopupWithForm
-            name="avatar"
-            title="Обновить аватар"
-            button={'Сохранить'}
-            isOpen={ isEditAvatarPopupOpen && 'popup_opened' }
-            onClose={closeAllPopups}>
-            <div className="popup__field">
-              <input className="popup__input popup__input_avatar_link" id="avatar-link" type="url" placeholder="Ссылка на новый аватар" name="link" required />
-              <span className="avatar-link-error popup__error" />
-            </div>
-          </PopupWithForm>
 
           <ImagePopup
             card={selectedCard}

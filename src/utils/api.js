@@ -96,7 +96,8 @@ const api = new Api({
   baseUrl: 'https://nomoreparties.co/v1/cohort-49/',
   headers: {
     authorization: '776fa51b-f2c4-44dc-b3e7-060fea23d99a',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
   },
 });
 
