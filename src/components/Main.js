@@ -1,12 +1,22 @@
 import Card from "./Card";
 import React, { useContext } from "react";
+import api from "../utils/api";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { CardsContext } from "../contexts/CardsContext";
 
+
 function Main(props) {
   const currentUser = useContext(CurrentUserContext);
   const cards = useContext(CardsContext);
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    api.changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        props.onSetCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      });
+  };
 
 
   return (
@@ -35,6 +45,7 @@ function Main(props) {
             card={data}
             onCardClick={props.onCardClick}
             id={currentUser._id}
+            onCardLike={handleCardLike}
           />
         })}
       </section>

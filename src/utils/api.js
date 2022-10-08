@@ -86,6 +86,10 @@ class Api {
     })
     .then(this._checkResponse)
   }
+
+  changeLikeCardStatus(id, isLiked) {
+    return isLiked ? this.deleteLike(id) : this.putLike(id);
+  }
 }
 
 const api = new Api({

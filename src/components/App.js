@@ -66,6 +66,9 @@ function App() {
             onEditProfile={handleEditProfileClick}
             onAddCard={handleAddCardClick}
             onCardClick={handleCardClick}
+            onSetCards={(cards) => {
+              setCards(cards);
+            }}
           />
 
           <Footer />
