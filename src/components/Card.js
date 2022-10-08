@@ -7,6 +7,10 @@ function Card(props) {
     props.onCardLike(props.card);
   };
 
+  function handleDeleteClick() {
+    props.onCardDelete(props.card);
+  }
+
   const isOwn = props.card.owner._id === props.id;
   const cardDeleteButtonClassName = (
     `${isOwn ? 'elements__trash' : 'elements__trash_hidden'}`
@@ -20,7 +24,7 @@ function Card(props) {
   return (
     <div className="elements__card" key={props.card._id}>
       <img className="elements__image" src={props.card.link} alt={props.card.name} onClick={handleClick} />
-      <button className={cardDeleteButtonClassName} />
+      <button className={cardDeleteButtonClassName} onClick={handleDeleteClick} />
       <div className="elements__title">
         <h2 className="elements__name elements__name_text-hidden">{props.card.name}</h2>
         <div className="elements__likes">

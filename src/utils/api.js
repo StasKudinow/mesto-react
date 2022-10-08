@@ -28,13 +28,13 @@ class Api {
     .then(this._checkResponse)
   }
 
-  setProfileData(data) {
+  setUserInfo(data) {
     return fetch(`${this._baseUrl}users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        about: data.job
+        about: data.about
       })
     })
     .then(this._checkResponse)

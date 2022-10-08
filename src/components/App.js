@@ -7,6 +7,7 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import EditProfilePopup from './EditProfilePopup';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { CardsContext } from '../contexts/CardsContext';
@@ -43,6 +44,18 @@ function App() {
     setSelectedCard({});
   };
 
+  function handleUpdateUser(data) {
+    console.log(data)
+    api.setUserInfo(data)
+      .then((userData) => {
+        setCurrentUser(userData);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
+  };
+
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userData, cardsData]) => {
@@ -73,21 +86,11 @@ function App() {
 
           <Footer />
 
-          <PopupWithForm
-            name="profile"
-            title="Редактировать профиль"
-            button={'Сохранить'}
+          <EditProfilePopup
             isOpen={ isEditProfilePopupOpen && 'popup_opened' }
-            onClose={closeAllPopups}>
-            <div className="popup__field">
-              <input className="popup__input popup__input_profile_name" id="profile-name" type="text" name="name" value="Жак-Ив Кусто" minLength="2" maxLength="40" required />
-              <span className="profile-name-error popup__error" />
-            </div>
-            <div className="popup__field">
-              <input className="popup__input popup__input_profile_job" id="profile-job" type="text" name="job" value="Исследователь океана" minLength="2" maxLength="200" required />
-              <span className="profile-job-error popup__error" />
-            </div>
-          </PopupWithForm>
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+          />
 
           <PopupWithForm
             name="cards"

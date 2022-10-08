@@ -15,7 +15,20 @@ function Main(props) {
     api.changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
         props.onSetCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-      });
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
+  };
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+      .then(() => {
+        props.onSetCards((state) => state.filter((c) => c._id !== card._id && c));
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      })
   };
 
 
@@ -46,6 +59,7 @@ function Main(props) {
             onCardClick={props.onCardClick}
             id={currentUser._id}
             onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
           />
         })}
       </section>
