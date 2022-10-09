@@ -21,7 +21,7 @@ function EditProfilePopup(props) {
     evt.preventDefault();
     props.onUpdateUser({
       name: name,
-      about: description,
+      about: description
     });
   };
 

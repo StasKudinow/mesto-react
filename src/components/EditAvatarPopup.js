@@ -1,13 +1,14 @@
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup(props) {
-  const avatarRef = useRef(null);
+  const avatarRef = useRef();
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    console.log(avatarRef.current.value);
     props.onUpdateAvatar({
-      avatar: avatarRef.current.src
+      avatar: avatarRef.current.value
     });
   };
 
@@ -28,7 +29,8 @@ function EditAvatarPopup(props) {
           name="link"
           placeholder="Ссылка на новый аватар"
           ref={avatarRef}
-          required />
+          required
+        />
         <span className="avatar-link-error popup__error" />
       </div>
     </PopupWithForm>

@@ -13,7 +13,7 @@ function Card(props) {
 
   const isOwn = props.card.owner._id === props.id;
   const cardDeleteButtonClassName = (
-    `${isOwn ? 'elements__trash' : 'elements__trash_hidden'}`
+    `${isOwn ? 'elements__trash' : ''}`
   );
 
   const isLiked = props.card.likes.some(i => i._id === props.id);
