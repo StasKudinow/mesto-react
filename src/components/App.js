@@ -5,7 +5,6 @@ import api from "../utils/api";
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import AddCardPopup from './AddCardPopup';
@@ -59,7 +58,6 @@ function App() {
 
   function handleUpdateAvatar(data) {
     api.setAvatar(data)
-    console.log(data.avatar)
       .then((userData) => {
         setCurrentUser(userData);
         closeAllPopups();
@@ -117,15 +115,16 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <CardsContext.Provider value={cards}>
+
           <Header />
 
           <Main 
             onEditAvatar={handleEditAvatarClick}
             onEditProfile={handleEditProfileClick}
             onAddCard={handleAddCardClick}
+            onCardDelete={handleCardDelete}
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
             cards={cards}
           />
 
@@ -149,16 +148,11 @@ function App() {
             onUpdateAvatar={handleUpdateAvatar}
           />
 
-          <PopupWithForm
-            name="delete"
-            title="Вы уверены?"
-            button={'Да'}
-          />
-
           <ImagePopup
             card={selectedCard}
             onClose={closeAllPopups}
           />
+
         </CardsContext.Provider>
       </CurrentUserContext.Provider>
     </div>
