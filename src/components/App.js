@@ -5,23 +5,24 @@ import api from "../utils/api";
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+// import PopupWithForm from "./PopupWithForm";
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import AddCardPopup from './AddCardPopup';
 import EditAvatarPopup from './EditAvatarPopup';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { CardsContext } from '../contexts/CardsContext';
 
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = useState(false);
+  // const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-  const [currentUser, setCurrentUser] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
-
+console.log(selectedCard)
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   };
@@ -34,6 +35,10 @@ function App() {
     setIsAddCardPopupOpen(true);
   };
 
+  // function handleConfirmDeleteClick() {
+  //   setIsConfirmDeletePopupOpen(true);
+  // };
+
   function handleCardClick(selectedCard) {
     setSelectedCard(selectedCard);
   };
@@ -42,6 +47,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddCardPopupOpen(false);
+    // setIsConfirmDeletePopupOpen(false);
     setSelectedCard({});
   };
 
@@ -114,7 +120,6 @@ function App() {
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
-        <CardsContext.Provider value={cards}>
 
           <Header />
 
@@ -153,7 +158,15 @@ function App() {
             onClose={closeAllPopups}
           />
 
-        </CardsContext.Provider>
+          {/* <PopupWithForm
+            isOpen={ isConfirmDeletePopupOpen && 'popup_opened' }
+            onClose={closeConfirmDeletePopup}
+            onSubmit={handleSubmit}
+            name="delete"
+            title="Вы уверены?"
+            button={'Да'}
+          /> */}
+
       </CurrentUserContext.Provider>
     </div>
   );

@@ -1,16 +1,4 @@
-import { useState } from 'react';
-import PopupWithForm from "./PopupWithForm";
-
 function Card(props) {
-  const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] = useState(false);
-
-  function handleConfirmDeleteClick() {
-    setIsConfirmDeletePopupOpen(true);
-  };
-
-  function closeConfirmDeletePopup() {
-    setIsConfirmDeletePopupOpen(false);
-  }
 
   function handleClick() {
     props.onCardClick(props.card);
@@ -20,10 +8,8 @@ function Card(props) {
     props.onCardLike(props.card);
   };
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
+  function handleDeleteClick(evt) {
     props.onCardDelete(props.card);
-    closeConfirmDeletePopup();
   };
 
   const isOwn = props.card.owner._id === props.id;
@@ -38,10 +24,9 @@ function Card(props) {
 
 
   return (
-    <>
       <div className="elements__card" key={props.card._id}>
         <img className="elements__image" src={props.card.link} alt={props.card.name} onClick={handleClick} />
-        <button className={cardDeleteButtonClassName} onClick={handleConfirmDeleteClick} />
+        <button className={cardDeleteButtonClassName} onClick={handleDeleteClick} />
         <div className="elements__title">
           <h2 className="elements__name elements__name_text-hidden">{props.card.name}</h2>
           <div className="elements__likes">
@@ -50,16 +35,6 @@ function Card(props) {
           </div>
         </div>
       </div>
-
-      <PopupWithForm
-        isOpen={ isConfirmDeletePopupOpen && 'popup_opened' }
-        onClose={closeConfirmDeletePopup}
-        onSubmit={handleSubmit}
-        name="delete"
-        title="Вы уверены?"
-        button={'Да'}
-      />
-    </>
   );
 }
 
