@@ -34,7 +34,7 @@ function EditAvatarPopup(props) {
         <span className="avatar-link-error popup__error" />
       </div>
     </PopupWithForm>
-  )
+  );
 }
 
 export default EditAvatarPopup;

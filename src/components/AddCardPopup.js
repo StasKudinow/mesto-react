@@ -61,7 +61,7 @@ function AddCardPopup(props) {
         <span className="cards-link-error popup__error" />
       </div>
     </PopupWithForm>
-  )
+  );
 }
 
 export default AddCardPopup;

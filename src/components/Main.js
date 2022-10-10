@@ -1,5 +1,5 @@
+import { useContext } from "react";
 import Card from "./Card";
-import React, { useContext } from "react";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -32,8 +32,8 @@ function Main(props) {
           return <Card
             key={data._id}
             card={data}
-            onCardClick={props.onCardClick}
             id={currentUser._id}
+            onCardClick={props.onCardClick}
             onCardLike={props.onCardLike}
             onCardDelete={props.onCardDelete}
           />
